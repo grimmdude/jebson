@@ -69,10 +69,6 @@ class Jebson {
 			// Strip out that YAML
 			echo str_replace(self::$yaml['raw'], '', self::$content);
 		}
-		elseif (!array_key_exists(1 + self::$urlOffset, self::$request)) {
-			// List posts with excertps here
-			echo 'all posts';
-		}
 		else {
 			self::error('Post not found');
 		}
