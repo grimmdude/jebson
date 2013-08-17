@@ -17,7 +17,8 @@ class Jebson {
   public static $request;
   
   public static function buildPage() {
-    if (self::$request = self::parseRequest()) {
+   
+	self::$request = self::parseRequest();
 	self::$yaml = self::getYaml();
 	
 	// Grab data from Yaml
@@ -30,7 +31,6 @@ class Jebson {
 	  include self::$templateDirectory.$template.'.php';
 	}
 	ob_end_flush();
-    }
   }
 
   public static function parseRequest() {

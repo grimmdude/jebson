@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once 'lib/yaml.php';
 class Jebson {
-  // Page SEO
+  // Default page data
   public static $pageData = array(
 				  'title' =>'Grimmdude - Jammin till the jammin&#039;s through',
 				  'description'=>'',
@@ -17,7 +17,8 @@ class Jebson {
   public static $request;
   
   public static function buildPage() {
-    if (self::$request = self::parseRequest()) {
+   
+	self::$request = self::parseRequest()
 	self::$yaml = self::getYaml();
 	
 	// Grab data from Yaml
@@ -30,7 +31,6 @@ class Jebson {
 	  include self::$templateDirectory.$template.'.php';
 	}
 	ob_end_flush();
-    }
   }
 
   public static function parseRequest() {
