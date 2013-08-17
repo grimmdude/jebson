@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Title of the document</title>
+      <link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
+    </head>
+    <body>
+      <div id="wrapper">
+	<header>
+	  <a id="logo" href="/">Grimmdude</a>
+	</header>
