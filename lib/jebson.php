@@ -10,7 +10,7 @@ class Jebson {
 			  'keywords'=>''
 			  );
 
-	public static $jebsonBaseUrl = '/jebson/';
+	public static $urlOffset = 1;
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
 	public static $templateLoadOrder = array('header','body','footer');
@@ -39,17 +39,17 @@ class Jebson {
 	}
 
 	public static function getYaml() {
-		if (file_exists(self::$contentDirectory.self::$request[1].'.html')) {
-			$content = file_get_contents(self::$contentDirectory.self::$request[1].'.html');
+		if (file_exists(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html')) {
+			$content = file_get_contents(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html');
 			$yaml = Yaml::parse(Yaml::get($content));
 			return $yaml;
 		}
 	}
 
 	public static function renderContent() {
-		if (!empty(self::$request[1])) {
-			if (file_exists(self::$contentDirectory.self::$request[1].'.html')) {
-				include self::$contentDirectory.self::$request[1].'.html';
+		if (!empty(self::$request[1 + self::$urlOffset])) {
+			if (file_exists(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html')) {
+				include self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html';
 			}
 			else {
 				self::error('Post not found');
