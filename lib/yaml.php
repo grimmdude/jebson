@@ -15,6 +15,6 @@ class Yaml {
 	public static function get($content) {
 		// Look for YAML enclosed in ---
 		preg_match('/-{3}(.*)-{3}/s', $content, $yaml);
-		return $yaml[1];
+		return $yaml[0];
 	}
 }

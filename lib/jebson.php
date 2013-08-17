@@ -5,10 +5,10 @@ require_once 'lib/yaml.php';
 class Jebson {
 	// Default page data
 	public static $pageData = array(
-			  'title' =>'Grimmdude - Jammin till the jammin&#039;s through',
-			  'description'=>'',
-			  'keywords'=>''
-			  );
+			 						 'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
+									  'description'	=>'',
+									  'keywords'	=>''
+			  						);
 
 	public static $urlOffset = 1;
 	public static $contentDirectory = 'content/';
@@ -16,48 +16,65 @@ class Jebson {
 	public static $templateLoadOrder = array('header','body','footer');
 	public static $yaml;
 	public static $request;
+	public static $content;
 
-	public static function buildPage() {
+	public static function init() {
+		self::getParsedRequest();
+		self::getContent();
+		self::getYaml();
+		self::buildPage();
+	}
 
-		self::$request = self::parseRequest();
-		self::$yaml = self::getYaml();
+	public static function getParsedRequest() {
+		self::$request = explode('/', $_SERVER['REQUEST_URI']);
+	}
 
-		// Grab data from Yaml
-		foreach (self::$yaml as $key => $value) {
-			self::$pageData[$key] = $value;
+	public static function getContent() {
+		$postPath = self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html';
+		
+		if (file_exists($postPath)) {
+			self::$content = file_get_contents($postPath);
 		}
-
+		else {
+			self::error('Post not found');
+		}
+	}
+	
+	public static function getYaml() {
+		if (isset(self::$content)) {
+			self::$yaml['raw'] = Yaml::get(self::$content);
+			self::$yaml['parsed'] = Yaml::parse(self::$yaml['raw']);
+			
+			// Store data from YAML for views to use
+			foreach (self::$yaml['parsed'] as $key => $value) {
+				self::$pageData[$key] = $value;
+			}
+		}
+	}
+	
+	public static function buildPage() {
 		ob_start();
 		foreach (self::$templateLoadOrder as $template) {
 			include self::$templateDirectory.$template.'.php';
 		}
-		ob_end_flush();
+		ob_end_flush();	
 	}
-
-	public static function parseRequest() {
-		return explode('/', $_SERVER['REQUEST_URI']);
-	}
-
-	public static function getYaml() {
-		if (file_exists(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html')) {
-			$content = file_get_contents(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html');
-			$yaml = Yaml::parse(Yaml::get($content));
-			return $yaml;
-		}
-	}
-
+	
 	public static function renderContent() {
-		if (!empty(self::$request[1 + self::$urlOffset])) {
-			if (file_exists(self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html')) {
-				include self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html';
-			}
-			else {
-				self::error('Post not found');
-			}
-		}
-		else {
+		if (empty(self::$request[1 + self::$urlOffset])) {
 			// List posts with excertps here
 			echo 'all posts';
+		}
+		elseif (isset(self::$content)) {
+			// Strip out that YAML
+			echo str_replace(self::$yaml['raw'], '', self::$content);
+		}
+		elseif (!array_key_exists(1 + self::$urlOffset, self::$request)) {
+			// List posts with excertps here
+			echo 'all posts';
+		}
+		else {
+			self::error('Post not found');
 		}
 	}
 
