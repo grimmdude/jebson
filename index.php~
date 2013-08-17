@@ -1,3 +1,9 @@
 <?php
-require_once ('jebson.php');
+require_once 'lib/jebson.php';
+Yaml::stripYaml(
+"---test: value
+title:my first blog post
+description: the description---
+this should not come through"
+);
 Jebson::buildPage();

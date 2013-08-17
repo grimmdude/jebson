@@ -1,3 +1,3 @@
 <?php
-require_once ('jebson.php');
+require_once 'lib/jebson.php';
 Jebson::buildPage();
