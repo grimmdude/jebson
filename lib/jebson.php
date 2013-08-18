@@ -35,9 +35,6 @@ class Jebson {
 		if (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
 		}
-		else {
-			self::error('Post not found');
-		}
 	}
 	
 	public static function getYaml() {
@@ -70,11 +67,19 @@ class Jebson {
 			echo str_replace(self::$yaml['raw'], '', self::$content);
 		}
 		else {
-			self::error('Post not found');
+			self::error(404);
 		}
 	}
 
-	public static function error($error = 'Error') {
-		echo $error;
+	public static function error($error) {
+		switch ($error) {
+			case 404:
+				echo 'Sorry, this page does not exist.';
+				break;
+			
+			default:
+				echo 'Error';
+				break;
+		}
 	}
 }
