@@ -29,7 +29,7 @@ class Jebson {
 	}
 
 	public static function getContent() {
-		$postPath = self::$contentDirectory.self::$request[0].'.html';
+		$postPath = self::$contentDirectory.implode('-', self::$request).'.html';
 		
 		if (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
@@ -60,9 +60,16 @@ class Jebson {
 		
 		if (empty(self::$request[0])) {
 			// List posts with excertps here
-			self::listAllPosts();
+			foreach (self::getAllPosts() as $post)
+			{
+				$filename = self::parseFilename($post);
+				?>
+				<a href="<?php echo $filename['slug']; ?>"><?php echo $filename['title']; ?></a>
+				<?php
+			}
 		}
 		elseif (isset(self::$content)) {
+			echo '<h1>'.self::$pageData['title'].'</h1>';
 			// Strip out that YAML
 			echo str_replace(self::$yaml['raw'], '', self::$content);
 		}
@@ -71,15 +78,24 @@ class Jebson {
 		}
 	}
 	
-	public static function listAllPosts() {
+	public static function getAllPosts() {
 		if ($handle = opendir(self::$contentDirectory)) {
 		    while (false !== ($entry = readdir($handle))) {
 		        if (substr($entry, 0, 1) != '.') {
-		            echo "$entry\n";
+		            $posts[] = $entry;
 		        }
 		    }
 		    closedir($handle);
+			return $posts;
 		}
+	}
+	
+	public static function parseFilename($filename) {
+		$return['date'] = substr($filename, 0, 10);
+		$return['raw_title'] = rtrim(substr($filename, 11), '.html');
+		$return['title'] = str_replace('-', ' ', $return['raw_title']);
+		$return['slug'] = '/'.str_replace('-', '/', $return['date']).'/'.$return['raw_title'];
+		return $return;
 	}
 
 	public static function error($error) {
