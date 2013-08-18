@@ -10,68 +10,79 @@ class Jebson {
 									  'keywords'	=>''
 			  						);
 
+	// Directories
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
-	public static $templateLoadOrder = array('header','body','footer');
-	public static $yaml;
+	public static $templateLoadOrder = array('header','post','footer');
+	
+	// Instance data
 	public static $request;
+	public static $yaml;
 	public static $content;
+	public static $title;
+	public static $date;
+	public static $slug;
 
 	public static function init() {
+		$start_time = microtime();
+		ob_start();
 		self::getParsedRequest();
-		self::getContent();
-		self::getYaml();
+		self::getContent(implode('-', self::$request).'.html');
 		self::buildPage();
+		echo 'Page load time: '.(microtime() - $start_time);
+		ob_flush();
 	}
 
 	public static function getParsedRequest() {
 		self::$request = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
 	}
 
-	public static function getContent() {
-		$postPath = self::$contentDirectory.implode('-', self::$request).'.html';
+	public static function getContent($filename = false) {
+		$postPath = self::$contentDirectory.$filename;
 		
 		if (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
+			self::getYaml();
+			
+			$parsedFilename = self::parseFilename($filename);
+			self::$title = $parsedFilename['title'];
+			self::$date = $parsedFilename['date'];
+			self::$slug = $parsedFilename['slug'];
 		}
 	}
 	
 	public static function getYaml() {
-		if (isset(self::$content)) {
-			self::$yaml['raw'] = Yaml::get(self::$content);
-			self::$yaml['parsed'] = Yaml::parse(self::$yaml['raw']);
-			
-			// Store data from YAML for views to use
-			foreach (self::$yaml['parsed'] as $key => $value) {
-				self::$pageData[$key] = $value;
-			}
+		self::$yaml['raw'] = Yaml::get(self::$content);
+		self::$yaml['parsed'] = Yaml::parse(self::$yaml['raw']);
+		
+		// At this point we don't need the YAML in the content anymore so we can get rid of it
+		self::$content = str_replace(self::$yaml['raw'], '', self::$content);
+		
+		// Store data from YAML for views to use
+		foreach (self::$yaml['parsed'] as $key => $value) {
+			self::$pageData[$key] = $value;
 		}
 	}
 	
 	public static function buildPage() {
-		ob_start();
 		foreach (self::$templateLoadOrder as $template) {
 			include self::$templateDirectory.$template.'.php';
 		}
-		ob_end_flush();	
 	}
 	
-	public static function renderContent() {
-		
+	public static function renderContent() {		
 		if (empty(self::$request[0])) {
-			// List posts with excertps here
+			// List posts with excerpts here
 			foreach (self::getAllPosts() as $post)
 			{
-				$filename = self::parseFilename($post);
-				?>
-				<a href="<?php echo $filename['slug']; ?>"><?php echo $filename['title']; ?></a>
-				<?php
+				self::getContent($post);
+				include self::$templateDirectory.'excerpt.php';
 			}
 		}
 		elseif (isset(self::$content)) {
-			echo '<h1>'.self::$pageData['title'].'</h1>';
+			echo '<h1>'.self::$title.'</h1>';
 			// Strip out that YAML
-			echo str_replace(self::$yaml['raw'], '', self::$content);
+			echo self::$content;
 		}
 		else {
 			self::error(404);
@@ -92,7 +103,7 @@ class Jebson {
 	
 	public static function parseFilename($filename) {
 		$return['date'] = substr($filename, 0, 10);
-		$return['raw_title'] = rtrim(substr($filename, 11), '.html');
+		$return['raw_title'] = str_replace('.html', '', substr($filename, 11));
 		$return['title'] = str_replace('-', ' ', $return['raw_title']);
 		$return['slug'] = '/'.str_replace('-', '/', $return['date']).'/'.$return['raw_title'];
 		return $return;
@@ -101,6 +112,7 @@ class Jebson {
 	public static function error($error) {
 		switch ($error) {
 			case 404:
+				header('HTTP/1.0 404 Not Found');
 				echo 'Sorry, this page does not exist.';
 				break;
 			

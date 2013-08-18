@@ -6,8 +6,10 @@ class Yaml {
 
 		// Then split each element by ':'
 		foreach ($yaml_lines_array as $line) {
-			$exploded_yaml = explode(':', $line);
-			$yaml_values[$exploded_yaml[0]] = trim($exploded_yaml[1]);
+			if (strstr($line, ':')) {
+				$exploded_yaml = explode(':', $line);
+				$yaml_values[$exploded_yaml[0]] = trim($exploded_yaml[1]);
+			}
 		}
 		return $yaml_values;
 	}
