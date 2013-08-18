@@ -10,7 +10,6 @@ class Jebson {
 									  'keywords'	=>''
 			  						);
 
-	public static $urlOffset = 1;
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
 	public static $templateLoadOrder = array('header','body','footer');
@@ -26,11 +25,11 @@ class Jebson {
 	}
 
 	public static function getParsedRequest() {
-		self::$request = explode('/', $_SERVER['REQUEST_URI']);
+		self::$request = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
 	}
 
 	public static function getContent() {
-		$postPath = self::$contentDirectory.self::$request[1 + self::$urlOffset].'.html';
+		$postPath = self::$contentDirectory.self::$request[0].'.html';
 		
 		if (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
@@ -58,9 +57,10 @@ class Jebson {
 	}
 	
 	public static function renderContent() {
-		if (empty(self::$request[1 + self::$urlOffset])) {
+		
+		if (empty(self::$request[0])) {
 			// List posts with excertps here
-			echo 'all posts';
+			self::listAllPosts();
 		}
 		elseif (isset(self::$content)) {
 			// Strip out that YAML
@@ -68,6 +68,17 @@ class Jebson {
 		}
 		else {
 			self::error(404);
+		}
+	}
+	
+	public static function listAllPosts() {
+		if ($handle = opendir(self::$contentDirectory)) {
+		    while (false !== ($entry = readdir($handle))) {
+		        if (substr($entry, 0, 1) != '.') {
+		            echo "$entry\n";
+		        }
+		    }
+		    closedir($handle);
 		}
 	}
 
