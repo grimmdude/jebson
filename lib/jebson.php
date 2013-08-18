@@ -13,12 +13,13 @@ class Jebson {
 	// Directories
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
-	public static $templateLoadOrder = array('header','post','footer');
+	public static $templateLoadOrder = array('header','body','footer');
 	
 	// Instance data
 	public static $request;
 	public static $yaml;
 	public static $content;
+	public static $excerpt;
 	public static $title;
 	public static $date;
 	public static $slug;
@@ -38,10 +39,12 @@ class Jebson {
 	}
 
 	public static function getContent($filename = false) {
+		
 		$postPath = self::$contentDirectory.$filename;
 		
 		if (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
+			
 			self::getYaml();
 			
 			$parsedFilename = self::parseFilename($filename);
@@ -57,6 +60,10 @@ class Jebson {
 		
 		// At this point we don't need the YAML in the content anymore so we can get rid of it
 		self::$content = str_replace(self::$yaml['raw'], '', self::$content);
+		list(self::$excerpt) = explode('{{readmore}}', self::$content);
+		
+		// Gotta get rid of the {{readmore}} tag now...there should be a better way to do this
+		self::$content = str_replace('{{readmore}}', '', self::$content);
 		
 		// Store data from YAML for views to use
 		foreach (self::$yaml['parsed'] as $key => $value) {
@@ -80,9 +87,7 @@ class Jebson {
 			}
 		}
 		elseif (isset(self::$content)) {
-			echo '<h1>'.self::$title.'</h1>';
-			// Strip out that YAML
-			echo self::$content;
+			include self::$templateDirectory.'post.php';
 		}
 		else {
 			self::error(404);

@@ -11,5 +11,6 @@
 		<body>
 			<div class="container">
 			<header>
-				<a id="logo" href="/">Grimmdude</a>
+				<h1><a href="/">Jebson</a></h1>
+				<!--<a id="logo" href="/">Grimmdude</a>-->
 			</header>
