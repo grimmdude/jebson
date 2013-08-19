@@ -5,10 +5,10 @@ require_once 'lib/yaml.php';
 class Jebson {
 	// Default page data
 	public static $pageData = array(
-			 						 'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
-									  'description'	=>'',
-									  'keywords'	=>''
-			  						);
+						'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
+						'description'	=>'',
+						'keywords'	=>''
+			  		);
 
 	// Directories
 	public static $contentDirectory = 'content/';
@@ -80,7 +80,7 @@ class Jebson {
 	public static function renderContent() {		
 		if (empty(self::$request[0])) {
 			// List posts with excerpts here
-			foreach (self::getAllPosts() as $post)
+			foreach (self::getPosts() as $post)
 			{
 				self::getContent($post);
 				include self::$templateDirectory.'excerpt.php';
@@ -94,10 +94,10 @@ class Jebson {
 		}
 	}
 	
-	public static function getAllPosts() {
+	public static function getPosts($start = false, $end = false) {
 		if ($handle = opendir(self::$contentDirectory)) {
 		    while (false !== ($entry = readdir($handle))) {
-		        if (substr($entry, 0, 1) != '.') {
+		        if (substr($entry, 0, 1) != '.' && is_numeric(substr(str_replace('-','',$entry), 0, 7))) {
 		            $posts[] = $entry;
 		        }
 		    }
