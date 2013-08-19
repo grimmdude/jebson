@@ -46,7 +46,7 @@ class Jebson {
 			self::getYaml();
 			
 			$parsedFilename = self::parseFilename($filename);
-			//self::$title = $parsedFilename['title'];
+			self::$title = $parsedFilename['title'];
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
 		}
@@ -107,7 +107,7 @@ class Jebson {
 	public static function parseFilename($filename) {
 		$return['date'] = substr($filename, 0, 10);
 		$return['raw_title'] = str_replace('.html', '', substr($filename, 11));
-		//$return['title'] = str_replace('-', ' ', $return['raw_title']);
+		$return['title'] = str_replace('-', ' ', $return['raw_title']);
 		$return['slug'] = '/'.str_replace('-', '/', $return['date']).'/'.$return['raw_title'];
 		return $return;
 	}
