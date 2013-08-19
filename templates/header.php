@@ -11,6 +11,10 @@
 		<body>
 			<div class="container">
 			<header>
-				<h1><a href="/">Jebson</a></h1>
-				<!--<a id="logo" href="/">Grimmdude</a>-->
+				<h1><a id="logo" href="/">Grimmdude</a></h1>
 			</header>
+			<nav>
+				<ul>
+					<li><a href="/">test</a></li>
+				</ul>
+			</nav>
