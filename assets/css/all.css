@@ -1,4 +1,8 @@
+a, a:visited, a:active {color:#2B787E;}
+a:hover {color:#FF0000;text-decoration:none;}
+
 nav {border-top:1px solid #CCCCCC;}
 	nav ul {padding:0;overflow:hidden;}
 		nav ul li {list-style:none;float:left;margin-right:30px;}
 #logo {display:block;width:343px;height:72px;background-image:url(/assets/img/grimmdude_header.png);text-indent:-99%;}
+#sidebar {border-left:1px solid #C9C6B3;}

@@ -1,4 +1,4 @@
 <article>
-	<h2><?php echo self::$pageData['title']; ?></h2>
+	<h1><?php echo self::$pageData['title']; ?></h1>
 	<?php echo self::$content; ?>
 </article>

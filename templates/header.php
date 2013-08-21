@@ -10,14 +10,16 @@
 		</head>
 		<body>
 			<div class="container">
-			<header>
-				<h1><a id="logo" href="/">Grimmdude</a></h1>
-			</header>
-			<nav>
-				<ul>
-					<li><a href="/web-development">Web Development</a></li>
-					<li><a href="/music">Music</a></li>
-					<li><a href="/">Blog</a></li>
-					<li><a href="/contact">Contact</a></li>
-				</ul>
-			</nav>
+				<header>
+					<h1><a id="logo" href="/">Grimmdude</a></h1>
+				</header>
+				<nav>
+					<ul>
+						<li><a href="/web-development">Web Development</a></li>
+						<li><a href="/music">Music</a></li>
+						<li><a href="/">Blog</a></li>
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+				</nav>
+				<div class="row">
+					<div class="col-md-8">
