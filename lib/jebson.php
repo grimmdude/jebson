@@ -3,13 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once 'lib/yaml.php';
 class Jebson {
-	// Default page data
-	public static $pageData = array(
-						'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
-						'description'	=>'',
-						'keywords'	=>''
-			  		);
-
 	// Directories
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
@@ -17,20 +10,28 @@ class Jebson {
 	
 	// Instance data
 	public static $request;
+	public static $start_time;
+	public static $load_time;
 	public static $yaml;
 	public static $content;
 	public static $excerpt;
 	public static $title;
 	public static $date;
 	public static $slug;
+	
+	// Default page data
+	public static $pageData = array(
+						'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
+						'description'	=>'',
+						'keywords'	=>''
+			  		);
 
 	public static function init() {
-		$start_time = microtime();
+		self::$start_time = microtime(true);
 		ob_start();
 		self::getParsedRequest();
 		self::getContent(implode('-', self::$request).'.html');
 		self::buildPage();
-		echo 'Page load time: '.(microtime() - $start_time);
 		ob_flush();
 	}
 
@@ -70,6 +71,7 @@ class Jebson {
 	}
 	
 	public static function buildPage() {
+		self::$load_time = microtime(true) - self::$start_time;
 		foreach (self::$templateLoadOrder as $template) {
 			include self::$templateDirectory.$template.'.php';
 		}

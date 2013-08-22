@@ -17,17 +17,17 @@
 					</ul>
 					<h2>GitHub Projects</h2>
 					<ul>
-						<li><a href="">Scale Generator</a></li>
-						<li><a href="">Raphael Keyboard</a></li>
-						<li><a href="">Raphael Guitar</a></li>
-						<li><a href="">jQuery menuFlip Plugin</a></li>
+						<li><a href="https://github.com/grimmdude/Scale-Generator">Scale Generator</a></li>
+						<li><a href="https://github.com/grimmdude/Raphael-Keyboard">Raphael Keyboard</a></li>
+						<li><a href="https://github.com/grimmdude/Raphael-Guitar">Raphael Guitar</a></li>
+						<li><a href="https://github.com/grimmdude/jQuery-menuFlip">jQuery menuFlip Plugin</a></li>
 					</ul>
 				</div>
 			</div>
 			<footer>
-				Page built with <a href="https://github.com/grimmdude/jebson">Jebson</a>
+				<p>Page built with <a href="https://github.com/grimmdude/jebson">Jebson</a></p>
+				<p>Load time: <?php echo self::$load_time; ?></p>
 			</footer>
 		</div>
-		<script src="/assets/js/jquery.js"></script>
 	</body>
 </html>

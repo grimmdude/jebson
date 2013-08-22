@@ -7,6 +7,8 @@
 		<link rel="canonical" href="" />
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
 		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
+		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
+		<script src="/assets/js/jquery.js"></script>
 		</head>
 		<body>
 			<div class="container">
