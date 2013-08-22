@@ -96,12 +96,12 @@ class Jebson {
 	
 	public static function getPosts($start = false, $end = false) {
 		if ($handle = opendir(self::$contentDirectory)) {
-		    while (false !== ($entry = readdir($handle))) {
-		        if (substr($entry, 0, 1) != '.' && is_numeric(substr(str_replace('-','',$entry), 0, 7))) {
-		            $posts[] = $entry;
-		        }
-		    }
-		    closedir($handle);
+ 			while (false !== ($entry = readdir($handle))) {
+				if (substr($entry, 0, 1) != '.' && is_numeric(substr(str_replace('-','',$entry), 0, 7))) {
+					$posts[] = $entry;
+				}
+			}
+			closedir($handle);
 			return $posts;
 		}
 	}
