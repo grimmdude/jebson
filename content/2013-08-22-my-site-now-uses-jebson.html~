@@ -1,0 +1,78 @@
+---
+title:My Site Now Uses Jebson
+description:
+keywords:
+---
+
+<p>
+	Up until now I've always used Wordpress to manage this site; mainly because it's easy to use and it's what I learned on.  It's great in that regard
+	but lately I've been realizing how slow it is.  I realized that I didn't even need the media library, special SEO plugins, dynamic nav menus, and widgets.  Then I realized,
+	I don't even need a database.  I wanted a system that was fast to load, and simple to add content or modify template files.  Basically I wanted a static site, but I wasn't too keen 
+	on learning a bunch of new terminal commands and re-building everytime I write a new post.
+</p>
+<p>
+	Blah blah blah, so I wrote my own CMS.  While it still technically builds each page dynamically it's quick loading, and there's no database to fuss with.  
+	I call it <code>Jebson</code>, named after one of my pups.  Now I'll describe how to use it, if not for anyone else at least I'll have it in case I forget.  
+	You'll notice I borrow some stuff from popular static site generators, that's just how I roll.
+</p>
+<h2>Setup</h2>
+<p>
+	<code>Jebson</code> is written in PHP and is setup to use Apache.  I don't think it would be hard to use other web servers though.  You'll just need to replace the 
+	<code>.htaccess</code> files to what work with whatever your web server uses.
+</p>
+<h2>Templates</h2>
+<p>
+	The main work in setup is going to be setting up your templates.  These are the common files that get loaded on each page like the header, footer, etc...  
+	All templates are <code>.php</code> files and live in the <code>/templates</code> directory.  Below are the variables that you'll need to echo in your templates 
+	to output content and other available data.
+</p>
+<h3>Template Variables</h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Variable</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>self::$content</code></td>
+			<td>The juice.  This holds the content.</td>
+		</tr>
+				<tr>
+			<td><code>self::$load_time</code></td>
+			<td>Holds the number of seconds it took to load the page.</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Writing Content</h2>
+<p>
+	All content is saved as html files in the <code>/content</code> directory.  Naming conventions are as follows:
+</p>
+<h3>Posts</h3>
+<p>For posts which are to be sorted by date:</p>
+<pre>
+2013-08-22-url-of-the-post.html
+</pre>
+<p>This will result in a post url like so:</p>
+<pre>
+website.com/2013/08/22/url-of-the-post
+</pre>
+<h3>Pages</h3>
+<p>For pages, that is content that is not considered a dated post, just leave out the date:</p>
+<pre>
+title-of-my-page.html
+</pre>
+<p>Which results in this url:</pre>
+<pre>
+website.com/title-of-my-page
+</pre>
+<p>Each file starts off with some YAML to define some stuff:</p>
+<pre>
+
+title: Title of the post or page
+description: Description meta data
+keywords: Keyword meta data
+
+</pre>
