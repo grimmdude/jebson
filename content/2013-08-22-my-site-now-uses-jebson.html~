@@ -45,7 +45,7 @@ keywords:
 		</tr>
 	</tbody>
 </table>
-
+<p>To define the load order for the templates use the array in *****</p>
 <h2>Writing Content</h2>
 <p>
 	All content is saved as html files in the <code>/content</code> directory.  Naming conventions are as follows:
