@@ -7,7 +7,6 @@ class Jebson {
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
 	public static $templateLoadOrder = array('header','body','footer');
-	public static $perPage = 7;
 	
 	// Instance data
 	public static $request;
