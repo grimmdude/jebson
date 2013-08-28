@@ -47,3 +47,15 @@ jQuery(document).ready(function() {
 <pre><code>&lt;a href="http://www.grimmdude.com/contact/" class="confirm"&gt;Link Example&lt;/a&gt;</code></pre>
 <h3>The Link</h3>
 <p><a href="http://www.grimmdude.com/contact/" class="confirm">Link Example</a></p>
+<script>
+jQuery(document).ready(function() {
+  jQuery('a.confirm').click(function(event) {
+    event.preventDefault()
+    var url = jQuery(this).attr('href');
+    var confirm_box = confirm('Are you sure you want to click this link?');
+    if (confirm_box) {
+       window.location = url;
+    }
+  });
+});
+</script>
