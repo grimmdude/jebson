@@ -7,7 +7,8 @@ class Jebson {
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
 	public static $templateLoadOrder = array('header','body','footer');
-	public static $perPage = 7;
+	public static $blogURI = 'blog';
+	public static $postsPerPage = 5;
 	
 	// Instance data
 	public static $request;
@@ -19,6 +20,7 @@ class Jebson {
 	public static $title;
 	public static $date;
 	public static $slug;
+	public static $pageNumber;
 	
 	// Default page data
 	public static $pageData = array(
@@ -51,7 +53,9 @@ class Jebson {
 			//self::$title = $parsedFilename['title'];
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
+			return true;
 		}
+		return false;
 	}
 	
 	public static function getYaml() {
@@ -79,9 +83,11 @@ class Jebson {
 	}
 	
 	public static function renderContent() {		
-		if (empty(self::$request[0])) {
+		if (self::$request[0] == self::$blogURI) {
+			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : null;
+			
 			// List posts with excerpts here
-			foreach (self::getPosts() as $post)
+			foreach (self::getPosts(self::$pageNumber) as $post)
 			{
 				self::getContent($post);
 				include self::$templateDirectory.'excerpt.php';
@@ -95,11 +101,30 @@ class Jebson {
 		}
 	}
 	
-	public static function getPosts($start = false, $end = false) {
+	public static function getPosts($page = null) {
 		if ($handle = opendir(self::$contentDirectory)) {
+			$postCount = 0;
  			while (false !== ($entry = readdir($handle))) {
 				if (substr($entry, 0, 1) != '.' && is_numeric(substr(str_replace('-','',$entry), 0, 7))) {
-					$posts[] = $entry;
+					$postCount++;
+					if (is_numeric($page)) {
+						switch ($page) {
+							case 1:
+								$start = $page;
+								$stop = $page + self::$postsPerPage - 1;
+								break;
+							default:
+								$start = $page * self::$postsPerPage - 1;
+								$stop = $page * self::$postsPerPage + self::$postsPerPage - 2;
+								break;
+						}
+						if (in_array($postCount, range($start, $stop))) {
+							$posts[] = $entry;
+						}
+					}
+					elseif (!is_numeric($page)) {
+						$posts[] = $entry;	
+					}
 				}
 			}
 			closedir($handle);
@@ -119,7 +144,7 @@ class Jebson {
 		switch ($error) {
 			case 404:
 				header('HTTP/1.0 404 Not Found');
-				echo 'Sorry, this page does not exist.';
+				echo '<p>Sorry, this page does not exist.</p>';
 				break;
 			
 			default:
