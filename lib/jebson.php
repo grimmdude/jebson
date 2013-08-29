@@ -3,12 +3,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once 'lib/yaml.php';
 class Jebson {
-	// Directories
+	// Setup
 	public static $contentDirectory = 'content/';
 	public static $templateDirectory = 'templates/';
 	public static $templateLoadOrder = array('header','body','footer');
 	public static $blogURI = 'blog';
 	public static $postsPerPage = 5;
+	public static $cache = true;
 	
 	// Instance data
 	public static $request;
@@ -35,6 +36,7 @@ class Jebson {
 		self::getParsedRequest();
 		self::getContent(implode('-', self::$request).'.html');
 		self::buildPage();
+		file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents());
 		ob_flush();
 	}
 
@@ -44,7 +46,13 @@ class Jebson {
 
 	public static function getContent($filename = false) {
 		$postPath = self::$contentDirectory.$filename;
-		if (file_exists($postPath)) {
+		// First check cache
+		if (self::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+			echo 'cached...';
+			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
+			die;
+		}
+		elseif (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
 			
 			self::getYaml();

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>menuFlip &#8211; jQuery Plugin for Flipping Navigation</title>
+		<meta name="description" content="test" />
+		<meta name="keywords" content="test" />
+		<link rel="canonical" href="http://local.jebson/2011/08/11/jquery-menu-flip" />
+		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
+		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
+		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
+		<script src="/assets/js/jquery.js"></script>
+		</head>
+		<body>
+			<div class="container">
+				<header>
+					<h1><a id="logo" href="/">Grimmdude</a></h1>
+				</header>
+				<nav>
+					<ul>
+						<li><a href="/web-development">Web Development</a></li>
+						<li><a href="/music">Music</a></li>
+						<li><a href="/blog">Blog</a></li>
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+				</nav>
+				<div class="row">
+					<div class="col-md-8">
+<article>
+	<h1>menuFlip &#8211; jQuery Plugin for Flipping Navigation</h1>
+	
+<style type="text/css" media="screen">
+	ul#flip_nav {
+		background-color:#ffffff;
+		border:none;
+		overflow:hidden;
+	}
+
+	ul#flip_nav li {
+		list-style:none;
+		float:left;
+		text-align:center;
+		margin:0px 10px 0px 0px;
+
+		/*bare bones required css (feel free to change the height though)*/
+		height:20px;
+		overflow:hidden;
+	}
+
+	ul#flip_nav li a  {
+		font-family:helvetica;
+		font-size:12px;
+		color:#3f3f3f;
+		text-transform:uppercase;
+		text-decoration:none;
+		background-color:white;
+		margin:0px;
+		padding:0px 5px 0px 5px;
+
+		/*bare bones required css*/
+		display:block;
+	}
+
+	/*this defines the styling of the new flipped menu item*/
+	ul#flip_nav li a.flipped_item {
+		background-color:#000000;
+		color: #ffffff;
+	}
+</style>
+<p>menuFlip is a jQuery plugin for adding a &#8216;flipping&#8217; effect to text based navigational menu items when hovered over without needing to use background images, which can be a pain.</p>
+
+<h2>Download</h2>
+<p>You can download this plugin from the <a href="https://github.com/grimmdude/jQuery-menuFlip" title="jQuery menuFlip Plugin" target="_blank">GitHub repository here</a>.</p>
+<h2>Menu Example</h2>
+<ul id="flip_nav">
+	<li><a href=#>Home</a></li>
+	<li><a href=#>Web</a></li>
+	<li><a href=#>Blog</a></li>
+	<li><a href=#>Contact</a></li>
+</ul>
+<h2>HTML</h2>
+<p>All you need is this simple markup.</p>
+<pre>
+	<code>
+&lt;ul id="flip_nav"&gt;
+	&lt;li&gt;&lt;a href="/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="/web"&gt;Web&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="/blog"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+	</code>
+</pre>
+<h2>Calling the Plugin</h2>
+<pre>
+	<code>
+$(function() {
+	$('#flip_nav').menuFlip();
+});
+	</code>
+</pre>
+<h2>CSS</h2>
+<p>No extra CSS is required for this plugin to function, but you&#8217;ll probably want to define a width for the <code>ul</code> or float the <code>li</code> elements to the left so they are inline.  Also, the flipped items have a class of <code>flipped_item</code> so you can style that puppy as you like.  Here&#8217;s an example of the CSS for the above example:</p>
+<pre>
+	<code>
+ul#flip_nav li {
+	float:left;
+	text-align:center;
+	margin:0px 10px 0px 0px;
+}
+
+/*this defines the styling of the new flipped menu item*/
+ul#flip_nav a.flipped_item {
+	background-color:#000000;
+	color: #ffffff;
+}
+	</code>
+</pre>
+<script type='text/javascript' src='/assets/js/jquery.menuFlip.js'></script>
+<script type="text/javascript" charset="utf-8">
+	jQuery('#flip_nav').menuFlip();
+</script></article>
+				</div>
+				<div class="col-md-4" id="sidebar">
+					<h2>Wordpress Plugins</h2>
+					<ul>
+						<li><a href="">Simple Auto Delay Popup Plugin</a></li>
+						<li><a href="">Simple Popup Plugin</a></li>
+						<li><a href="">Simple Static Google Maps</a></li>
+						<li><a href="">Simple Select All Text Box</a></li>
+						<li><a href="">Initial Letter</a></li>
+					</ul>
+					<h2>Online Music Tools</h2>
+					<ul>
+						<li><a href="http://www.musictheorysite.com/namethatchord/">Name That Chord</a></li>
+						<li><a href="http://www.musictheorysite.com/namethatkey/">Name That Key</a></li>
+						<li><a href="http://www.musictheorysite.com/scale-generator/">Scale Generator</a></li>
+					</ul>
+					<h2>GitHub Projects</h2>
+					<ul>
+						<li><a href="https://github.com/grimmdude/Scale-Generator">Scale Generator</a></li>
+						<li><a href="https://github.com/grimmdude/Raphael-Keyboard">Raphael Keyboard</a></li>
+						<li><a href="https://github.com/grimmdude/Raphael-Guitar">Raphael Guitar</a></li>
+						<li><a href="https://github.com/grimmdude/jQuery-menuFlip">jQuery menuFlip Plugin</a></li>
+					</ul>
+				</div>
+			</div>
+			<footer>
+				<p>Page built with <a href="https://github.com/grimmdude/jebson">Jebson</a></p>
+				<p>Load time: 0.00052905082702637</p>
+			</footer>
+		</div>
+	</body>
+</html>
