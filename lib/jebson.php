@@ -53,7 +53,7 @@ class Jebson {
 		
 		// First check to see if cache is enabled and we have a cached page for this request
 		if (self::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
-			//echo 'cached...';
+			echo 'cached...';
 			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
 			die;
 		}
