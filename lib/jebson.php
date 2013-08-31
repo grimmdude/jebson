@@ -25,9 +25,9 @@ class Jebson {
 	
 	// Default page data
 	public static $pageData = array(
-						'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
+						'title'			=>'Grimmdude - Jammin till the jammin&#039;s through',
 						'description'	=>'',
-						'keywords'	=>''
+						'keywords'		=>''
 			  		);
 
 	public static function init() {
@@ -36,7 +36,11 @@ class Jebson {
 		self::getParsedRequest();
 		self::getContent(implode('-', self::$request).'.html');
 		self::buildPage();
-		file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents());
+		
+		// If cache is enabled then save the completed page in the cache folder
+		if (self::$cache) {
+			file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents());
+		}
 		ob_flush();
 	}
 
@@ -46,21 +50,22 @@ class Jebson {
 
 	public static function getContent($filename = false) {
 		$postPath = self::$contentDirectory.$filename;
-		// First check cache
+		
+		// First check to see if cache is enabled and we have a cached page for this request
 		if (self::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
-			echo 'cached...';
+			//echo 'cached...';
 			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
 			die;
 		}
 		elseif (file_exists($postPath)) {
 			self::$content = file_get_contents($postPath);
-			
 			self::getYaml();
 			
 			$parsedFilename = self::parseFilename($filename);
 			//self::$title = $parsedFilename['title'];
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
+			
 			return true;
 		}
 		return false;
