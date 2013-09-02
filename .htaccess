@@ -1,4 +1,21 @@
 RewriteEngine On
+
+# Old Posts
+RewriteRule ^jquery-menuflip/?$ /2011/08/11/jquery-menu-flip [R=301,QSA,L,NC]
+RewriteRule ^wordpress-simple-popup-plugin/?$ /2009/01/29/wordpress-simple-popup-plugin [R=301,QSA,L,NC]
+RewriteRule ^wordpress-simple-auto-delay-popup-plugin/?$ /2011/06/11/wordpress-simple-auto-delay-popup-plugin [R=301,QSA,L,NC]
+RewriteRule ^creating-two-column-unordered-ul-lists/?$ /2009/11/05/creating-two-column-unordered-ul-lists [R=301,QSA,L,NC]
+RewriteRule ^confirming-a-link-click-with-jquery/?$ /2011/07/28/confirming-a-link-click-with-jquery [R=301,QSA,L,NC]
+RewriteRule ^simple-static-google-maps-wordpress-plugin/?$ /2010/02/28/simple-static-google-maps-wordpress-plugin [R=301,QSA,L,NC]
+RewriteRule ^simple-select-all-text-box-wordpress-plugin/?$ /2009/11/04/simple-select-all-text-box-wordpress-plugin [R=301,QSA,L,NC]
+RewriteRule ^initial-letter-wordpress-plugin/?$ /2012/12/20/initial-letter-wordpress-plugin [R=301,QSA,L,NC]
+RewriteRule ^asciibin-ascii-to-binary-to-ascii-converter/?$ /2011/11/27/asciibin-ascii-to-binary-to-ascii-converter [R=301,QSA,L,NC]
+RewriteRule ^bouncing-ball-using-raphael-javascript-library/?$ /2011/08/11/bouncing-ball-using-raphael-javascript-library [R=301,QSA,L,NC]
+RewriteRule ^delete-duplicate-wordpress-comments/?$ /2013/06/24/delete-duplicate-wordpress-comments [R=301,QSA,L,NC]
+
+# Old Pages
+RewriteRule ^web-dev/?$ /web-development [R=301,QSA,L,NC]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^.*$ index.php

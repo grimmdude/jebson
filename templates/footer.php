@@ -5,9 +5,9 @@
 					<ul>
 						<li><a href="">Simple Auto Delay Popup Plugin</a></li>
 						<li><a href="">Simple Popup Plugin</a></li>
-						<li><a href="">Simple Static Google Maps</a></li>
-						<li><a href="">Simple Select All Text Box</a></li>
-						<li><a href="">Initial Letter</a></li>
+						<li><a href="/2010/02/28/simple-static-google-maps-wordpress-plugin">Simple Static Google Maps</a></li>
+						<li><a href="/2009/11/04/simple-select-all-text-box-wordpress-plugin">Simple Select All Text Box</a></li>
+						<li><a href="/2012/12/20/initial-letter-wordpress-plugin">Initial Letter</a></li>
 					</ul>
 					<h2>Online Music Tools</h2>
 					<ul>

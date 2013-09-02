@@ -141,6 +141,7 @@ class Jebson {
 				}
 			}
 			closedir($handle);
+			rsort($posts);
 			return $posts;
 		}
 	}
