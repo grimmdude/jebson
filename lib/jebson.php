@@ -9,12 +9,12 @@ class Jebson {
 	public static $templateLoadOrder = array('header','body','footer');
 	public static $blogURI = 'blog';
 	public static $postsPerPage = 5;
-	public static $cache = true;
+	public static $cache = false;
 	
 	// Instance data
 	public static $request;
-	public static $start_time;
-	public static $load_time;
+	public static $startTime;
+	public static $loadTime;
 	public static $yaml;
 	public static $content;
 	public static $excerpt;
@@ -31,7 +31,7 @@ class Jebson {
 			  		);
 
 	public static function init() {
-		self::$start_time = microtime(true);
+		self::$startTime = microtime(true);
 		ob_start();
 		self::getParsedRequest();
 		self::getContent(implode('-', self::$request).'.html');
@@ -89,7 +89,7 @@ class Jebson {
 	}
 	
 	public static function buildPage() {
-		self::$load_time = microtime(true) - self::$start_time;
+		self::$loadTime = microtime(true) - self::$startTime;
 		foreach (self::$templateLoadOrder as $template) {
 			include self::$templateDirectory.$template.'.php';
 		}
