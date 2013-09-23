@@ -11,8 +11,8 @@ require_once 'lib/yaml.php';
 class Jebson {
 	// Setup
 	public static $contentDirectory = 'content/';
-	public static $templateDirectory = 'templates/';
-	public static $templateLoadOrder = array('header','body','footer');
+	public static $viewsDirectory = 'views/';
+	public static $viewLoadOrder = array('header','body','footer');
 	public static $blogURI = 'blog';
 	public static $postsPerPage = 5;
 	public static $cache = false;
@@ -119,12 +119,12 @@ class Jebson {
 	}
 	
 	/**
-	 * Includes each element of the page as defined by self::$templateLoadOrder
+	 * Includes each element of the page as defined by self::$viewLoadOrder
 	 * @return void
 	 */
 	public static function buildPage() {
-		foreach (self::$templateLoadOrder as $template) {
-			include self::$templateDirectory.$template.'.php';
+		foreach (self::$viewLoadOrder as $template) {
+			include self::$viewsDirectory.$template.'.php';
 		}
 	}
 	
@@ -142,7 +142,7 @@ class Jebson {
 			if (count($posts)) {
 				foreach (self::getPosts(self::$pageNumber) as $post) {
 					self::getContent($post);
-					include self::$templateDirectory.'excerpt.php';
+					include self::$viewsDirectory.'excerpt.php';
 				}
 			}
 			else {
@@ -150,7 +150,7 @@ class Jebson {
 			}
 		}
 		elseif (isset(self::$content)) {
-			include self::$templateDirectory.'post.php';
+			include self::$viewsDirectory.'post.php';
 		}
 		else {
 			self::error(404);
