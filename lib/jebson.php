@@ -238,7 +238,7 @@ class Jebson {
 		switch ($error) {
 			case 404:
 				header('HTTP/1.0 404 Not Found');
-				echo '<p>Sorry, this page does not exist, 404.</p>';
+				include self::$viewsDirectory.'404.php';
 				break;
 			default:
 				echo 'Error';

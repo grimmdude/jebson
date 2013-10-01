@@ -1,4 +1,3 @@
-
 				</div>
 				<div class="col-md-4" id="sidebar">
 					<h2>Wordpress Plugins</h2>
