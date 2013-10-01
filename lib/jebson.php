@@ -13,6 +13,7 @@ class Jebson {
 	public static $contentDirectory = 'content/';
 	public static $viewsDirectory = 'views/';
 	public static $viewLoadOrder = array('header','body','footer');
+	public static $homepage = 'home.html';
 	public static $blogURI = 'blog';
 	public static $postsPerPage = 5;
 	public static $cache = false;
@@ -74,11 +75,16 @@ class Jebson {
 	/**
 	 * Gets content from given filename and saves it to static properties
 	 * @return void
-	 *
 	 */
 	public static function getContent($filename = false) {
-		$postPath = self::$contentDirectory.$filename;
-		
+		// Check if this is the home page
+		if (empty(self::$request)) {
+			$postPath = self::$contentDirectory.self::$homepage;
+		}
+		else {
+			$postPath = self::$contentDirectory.$filename;	
+		}
+
 		// First check to see if cache is enabled and we have a cached page for this request
 		if (self::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
 			echo 'cached...';
@@ -134,7 +140,7 @@ class Jebson {
 	 *
 	 */
 	public static function renderContent() {		
-		if (self::$request[0] == self::$blogURI) {
+		if (!empty(self::$request) && self::$request[0] == self::$blogURI) {
 			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
 			
 			// List posts with excerpts here
