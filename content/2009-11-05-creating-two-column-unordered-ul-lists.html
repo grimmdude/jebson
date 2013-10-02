@@ -1,0 +1,29 @@
+---
+title:Creating Two Column Unordered &lt;ul&gt; Lists
+description: Quick and easy tutorial on how to create a two column list using minimal CSS and HTML.
+keywords: html,css,unordered,ordered,two,column,list,easy,tutorial,lesson,help
+comments: on
+---
+<p><img class="size-medium wp-image-1201 alignnone" title="Creating Two Column Unordered Lists" src="http://www.grimmdude.com/wp-content/uploads/2009/11/red_ul-300x300.jpg" alt="Creating Two Column Unordered Lists" width="101" height="101" />I&#8217;ve been searching like mad how to split an unordered list &lt;ul&gt; into two columns and haven&#8217;t found an easy solution.  By using combined info from a few sites I figured out an easy way to do it.  If you already know how to do this then mozie on down folks.  Here it is:</p>
+<p>Make a &lt;div class=&#8221;double_column_list&#8221;&gt; and put a &lt;ul&gt; in it with some list items.   Set the &lt;li&gt; class to display at 50% width and float it to the left.</p>
+<h2>CSS</h2>
+<pre><code>.double_column_list li {float: left; width: 50%;}</code></pre>
+<h2>HTML</h2>
+<pre><code>&lt;div class="double_column_list"&gt;
+&lt;ul&gt;
+&lt;li&gt;Awesome Stuff&lt;/li&gt;
+&lt;li&gt;Awesome Stuff&lt;/li&gt;
+&lt;li&gt;Awesome Stuff&lt;/li&gt;
+&lt;li&gt;Awesome Stuff&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+<h2>Result</h2>
+<style type="text/css"> .double_column_list li { float: left; width: 50%; } </style>
+<div class="double_column_list">
+<ul>
+<li>Awesome Stuff</li>
+<li>Awesome Stuff</li>
+<li>Awesome Stuff</li>
+<li>Awesome Stuff</li>
+</ul>
+</div>
