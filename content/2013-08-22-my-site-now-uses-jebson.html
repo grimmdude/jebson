@@ -2,6 +2,7 @@
 title:My Site Now Uses Jebson
 description:
 keywords:
+comments: on
 ---
 
 <p>
@@ -21,13 +22,13 @@ keywords:
 	<code>Jebson</code> is written in PHP and is setup to use Apache.  I don't think it would be hard to use other web servers though.  You'll just need to replace the 
 	<code>.htaccess</code> files to what work with whatever your web server uses.
 </p>
-<h2>Templates</h2>
+<h2>Views</h2>
 <p>
-	The main work in setup is going to be setting up your templates.  These are the common files that get loaded on each page like the header, footer, etc...  
-	All templates are <code>.php</code> files and live in the <code>/templates</code> directory.  Below are the variables that you'll need to echo in your templates 
+	The main work in setup is going to be setting up your views.  These are the common files that get loaded on each page like the header, footer, etc...  
+	All views are <code>.php</code> files and live in the <code>/templates</code> directory.  Below are the variables that you'll need to echo in your view 
 	to output content and other available data.
 </p>
-<h3>Template Variables</h3>
+<h3>View Variables</h3>
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -40,9 +41,13 @@ keywords:
 			<td><code>self::$content</code></td>
 			<td>The juice.  This holds the content.</td>
 		</tr>
-				<tr>
+		<tr>
 			<td><code>self::$loadTime</code></td>
 			<td>Holds the number of seconds it took to load the page.</td>
+		</tr>
+		<tr>
+			<td><code>self::$pageData</code></td>
+			<td>Array of data defined in the YAML block of the content.</td>
 		</tr>
 	</tbody>
 </table>
@@ -71,9 +76,12 @@ website.com/title-of-my-page
 </pre>
 <p>Each file starts off with some YAML to define some stuff:</p>
 <pre>
-
 title: Title of the post or page
 description: Description meta data
 keywords: Keyword meta data
-
 </pre>
+<p>You can add your own key/value pairs to be used in your views.  I use a key called <code>comments</code> to control whether or not disqus comments are displayed.</p>
+<pre>
+comments: on
+</pre>
+<p>This YAML data is accesible in the <code>self::$pageData</code> array within view files.</p>
