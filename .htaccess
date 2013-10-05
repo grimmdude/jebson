@@ -12,6 +12,8 @@ RewriteRule ^initial-letter-wordpress-plugin/?$ /2012/12/20/initial-letter-wordp
 RewriteRule ^asciibin-ascii-to-binary-to-ascii-converter/?$ /2011/11/27/asciibin-ascii-to-binary-to-ascii-converter [R=301,QSA,L,NC]
 RewriteRule ^bouncing-ball-using-raphael-javascript-library/?$ /2011/08/11/bouncing-ball-using-raphael-javascript-library [R=301,QSA,L,NC]
 RewriteRule ^delete-duplicate-wordpress-comments/?$ /2013/06/24/delete-duplicate-wordpress-comments [R=301,QSA,L,NC]
+RewriteRule ^raphael-musical-instruments/?$ /2011/04/22/raphael-musical-instruments [R=301,QSA,L,NC]
+RewriteRule ^jalostotitlan-mexico//?$ /2008/02/10/jalostotitlan-mexico [R=301,QSA,L,NC]
 
 # Old Pages
 RewriteRule ^web-dev/?$ /web-development [R=301,QSA,L,NC]

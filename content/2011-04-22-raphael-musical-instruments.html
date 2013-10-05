@@ -1,0 +1,28 @@
+---
+title:Raphael Musical Instruments
+description:Back in December I was toying around with the Raphaël JavaScript Library and learned enough to realize I could use it to get one step closer to my mentally
+keywords:
+comments: on
+---
+<p>Back in December I was toying around with the <a title="Raphaël—JavaScript Library" href="http://raphaeljs.com/" target="_blank">Raphaël  JavaScript Library</a> and learned enough to realize I could use it to get one step closer to my mentally vague, yet personally exciting ideas of online jamming/music education/writing/etc.</p>
+{{readmore}}
+<p>After some fun experimentation I created a couple simple frameworks for musical instruments that would be quick loading, a versatile learning tool, and possibly even interactive (that&#8217;s the next step in my master plan), not to mention a good alternative to using flash.  And here they are:</p>
+<h2>Raphael Guitar</h2>
+<p>The first is Raphael Guitar.  This is a very simple drawing of the fretboard of a guitar.  Believe it or not, I used some of the guitar building knowledge I gained while working in Shanghai to put this puppy together.  Mainly the fret spacing going up the neck; the formula I used is same formula luthiers use to space the frets properly in order to achieve the correct pitch on any given fret.  In other words, it&#8217;s just like the real thing.</p>
+<div id="guitar"></div>
+<p><a title="Raphaël Guitar" href="https://github.com/grimmdude/Raphael-Guitar" target="_blank">GitHub repository</a></p>
+<h2>Raphael Keyboard</h2>
+<p>The other instrument I drew is a simple piano keyboard.  It&#8217;s scalable (no pun intended) in the sense that you can make it as many octaves as you like and alter the size to your liking by just changing a few variables which are pretty easy to see right at the top of the file (the guitar is the same way).  I&#8217;ve highlighted a few keys just to give an example of how it could be used.  Like Raphaël Guitar this is pretty bare bones but could have many uses down the road.</p>
+<div id="keyboard"></div>
+<p><a title="Raphaël Keyboard" href="https://github.com/grimmdude/Raphael-Keyboard" target="_blank">GitHub repository</a></p>
+<p>&nbsp;</p>
+<p>Please let me know if you have any ideas or questions regarding these drawings.  If you would like to contribute to these projects feel free to fork them in GitHub.  If you use them on your own site I just ask that you send some credit my way by mentioning my name, Garrett Grimm, and a link to my site, www.grimmdude.com.  </p>
+<p>Once I code in some more features and stuff I&#8217;ll write a post about the usage of these puppies.  In the meantime if you have any questions on how to use them post a comment and I&#8217;ll help you out.  Big ups!</p>
+<script src="/assets/js/raphael.js" type="text/javascript"></script>
+<script src="/assets/js/raphael_keyboard.js" type="text/javascript"></script>
+<script src="/assets/js/raphael_guitar.js" type="text/javascript"></script>
+<script type="text/javascript">
+	window.onload = function () {
+					raphael_keyboard();raphael_guitar();
+					}
+</script>
