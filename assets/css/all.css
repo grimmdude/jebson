@@ -5,5 +5,4 @@ pre {box-shadow:inset 0px 0px 9px -4px rgba(0,0,0,.5);-webkit-box-shadow:inset 0
 nav {border-top:1px solid #CCCCCC;}
 	nav ul {padding:0;overflow:hidden;}
 		nav ul li {list-style:none;float:left;margin-right:30px;}
-#logo {display:block;width:343px;height:72px;background-image:url(/assets/img/grimmdude_header.png);text-indent:-99%;}
 #sidebar {border-left:1px solid #C9C6B3;}

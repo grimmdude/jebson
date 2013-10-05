@@ -8,17 +8,8 @@
  */
 
 require_once 'lib/yaml.php';
-class Jebson {
-	// Setup
-	public static $contentDirectory = 'content/';
-	public static $viewsDirectory = 'views/';
-	public static $viewLoadOrder = array('header','body','footer');
-	public static $homepage = 'home.html';
-	public static $blogURI = 'blog';
-	public static $postsPerPage = 5;
-	public static $cache = false;
-	public static $debug = true;
-	
+require_once 'config.php';
+class Jebson {	
 	// Instance data
 	public static $request;
 	public static $startTime;
@@ -31,19 +22,19 @@ class Jebson {
 	public static $slug;
 	public static $pageNumber;
 	
-	// Default page data
+	// Set default page data
 	public static $pageData = array(
-					'title'		=>'Grimmdude - Jammin till the jammin&#039;s through',
-					'description'	=>'',
-					'keywords'	=>''
-			  		);
+		'title'			=> 'Title',
+		'description'	=> 'Description',
+		'keywords'		=> 'Keywords'
+	);	
 
 	/**
 	 * Main function that puts everything together.  The only method that's called from index.php
 	 * @return void
 	 */
 	public static function init() {
-		if (self::$debug) {
+		if (Config::$debug) {
 			error_reporting(E_ALL);
 			ini_set('display_errors', '1');
 		}
@@ -56,9 +47,10 @@ class Jebson {
 		self::buildPage();
 		
 		// If cache is enabled and this page hasn't been cached then save the completed page in the cache folder
-		if (self::$cache && !file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+		if (Config::$cache && !file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
 			if (!file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents())) {
-				// Exception here if can't write to cache dir
+				// Can't write to cache dir...
+				throw new Exception('cache/ is not writeable.');
 			}
 		}
 		ob_flush();
@@ -79,14 +71,14 @@ class Jebson {
 	public static function getContent($filename = false) {
 		// Check if this is the home page
 		if (empty(self::$request)) {
-			$postPath = self::$contentDirectory.self::$homepage;
+			$postPath = Config::$contentDirectory.Config::$homepage;
 		}
 		else {
-			$postPath = self::$contentDirectory.$filename;	
+			$postPath = Config::$contentDirectory.$filename;	
 		}
 
 		// First check to see if cache is enabled and we have a cached page for this request
-		if (self::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+		if (Config::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
 			echo 'cached...';
 			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
 			die;
@@ -129,8 +121,8 @@ class Jebson {
 	 * @return void
 	 */
 	public static function buildPage() {
-		foreach (self::$viewLoadOrder as $template) {
-			include self::$viewsDirectory.$template.'.php';
+		foreach (Config::$viewLoadOrder as $template) {
+			include Config::$viewsDirectory.$template.'.php';
 		}
 	}
 	
@@ -140,7 +132,7 @@ class Jebson {
 	 *
 	 */
 	public static function renderContent() {		
-		if (!empty(self::$request) && self::$request[0] == self::$blogURI) {
+		if (!empty(self::$request) && self::$request[0] == Config::$blogURI) {
 			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
 			
 			// List posts with excerpts here
@@ -148,7 +140,7 @@ class Jebson {
 			if (count($posts)) {
 				foreach (self::getPosts(self::$pageNumber) as $post) {
 					self::getContent($post);
-					include self::$viewsDirectory.'excerpt.php';
+					include Config::$viewsDirectory.'excerpt.php';
 				}
 			}
 			else {
@@ -156,7 +148,7 @@ class Jebson {
 			}
 		}
 		elseif (isset(self::$content)) {
-			include self::$viewsDirectory.'post.php';
+			include Config::$viewsDirectory.'post.php';
 		}
 		else {
 			self::error(404);
@@ -170,7 +162,7 @@ class Jebson {
 	 * @return array
 	 */
 	public static function getPosts($page = 1, $order = 'desc') {
-		if ($handle = opendir(self::$contentDirectory)) {
+		if ($handle = opendir(Config::$contentDirectory)) {
 			$allPosts = array();
 			// First create a list of available posts
  			while (false !== ($entry = readdir($handle))) {
@@ -194,11 +186,11 @@ class Jebson {
 				if (is_numeric($page)) {
 					if ($page == 1) {
 						$start = $page;
-						$stop = $page + self::$postsPerPage - 1;
+						$stop = $page + Config::$postsPerPage - 1;
 					}
 					else {
-						$start = $page * self::$postsPerPage - 1;
-						$stop = $page * self::$postsPerPage + self::$postsPerPage - 2;
+						$start = $page * Config::$postsPerPage - 1;
+						$stop = $page * Config::$postsPerPage + Config::$postsPerPage - 2;
 					}
 					
 					if (in_array($postCount, range($start, $stop))) {
@@ -238,7 +230,7 @@ class Jebson {
 		switch ($error) {
 			case 404:
 				header('HTTP/1.0 404 Not Found');
-				include self::$viewsDirectory.'404.php';
+				include Config::$viewsDirectory.'404.php';
 				break;
 			default:
 				echo 'Error';

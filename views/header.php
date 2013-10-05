@@ -8,18 +8,16 @@
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
 		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
 		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
-		<script src="/assets/js/jquery.js"></script>
 		</head>
 		<body>
 			<div class="container">
 				<header>
-					<h1><a id="logo" href="/">Grimmdude</a></h1>
+					<h1><a id="logo" href="/">Jebson</a></h1>
 				</header>
 				<nav>
 					<ul>
-						<li><a href="/web-development">Web Development</a></li>
 						<li><a href="/blog">Blog</a></li>
-						<li><a href="/contact">Contact</a></li>
+						<li><a href="/sample-page">Sample Page</a></li>
 					</ul>
 				</nav>
 				<div class="row">
