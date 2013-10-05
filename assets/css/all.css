@@ -1,5 +1,6 @@
 a, a:visited, a:active {color:#2B787E;}
 a:hover {color:#FF0000;text-decoration:none;}
+pre {box-shadow:inset 0px 0px 9px -4px rgba(0,0,0,.5);-webkit-box-shadow:inset 0px 0px 9px -4px rgba(0,0,0,.5);-moz-box-shadow:inset 0px 0px 9px -4px rgba(0,0,0,.5);}
 
 nav {border-top:1px solid #CCCCCC;}
 	nav ul {padding:0;overflow:hidden;}
