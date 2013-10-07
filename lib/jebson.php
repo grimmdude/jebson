@@ -50,7 +50,7 @@ class Jebson {
 		if (Config::$cache && !file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
 			if (!file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents())) {
 				// Can't write to cache dir...
-				throw new Exception('cache/ is not writeable.');
+				throw new Exception('/cache is not writeable.');
 			}
 		}
 		ob_flush();
@@ -229,7 +229,7 @@ class Jebson {
 	public static function error($error) {
 		switch ($error) {
 			case 404:
-				header('HTTP/1.0 404 Not Found');
+				header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 				include Config::$viewsDirectory.'404.php';
 				break;
 			default:

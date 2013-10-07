@@ -8,7 +8,6 @@
 			</div>
 			<footer>
 				<p>Page built with <a href="https://github.com/grimmdude/jebson">Jebson</a></p>
-				<p>Load time: <?php echo self::$loadTime; ?></p>
 			</footer>
 		</div>	
 	</body>
