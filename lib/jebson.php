@@ -42,7 +42,7 @@ class Jebson {
 		self::$startTime = microtime(true);
 		ob_start();
 		self::getParsedRequest();
-		self::getContent(implode('-', self::$request).'.html');
+		self::getContent();
 		self::$loadTime = microtime(true) - self::$startTime;
 		self::buildPage();
 		
@@ -68,13 +68,16 @@ class Jebson {
 	 * Gets content from given filename and saves it to static properties
 	 * @return void
 	 */
-	public static function getContent($filename = false) {
+	public static function getContent($filename = null) {
+		// Get the filename (and path) by the request
+		$filename = is_null($filename) ? self::getFilename() : $filename;
+				
 		// Check if this is the home page
 		if (empty(self::$request)) {
 			$postPath = Config::$contentDirectory.Config::$homepage;
 		}
 		else {
-			$postPath = Config::$contentDirectory.$filename;	
+			$postPath = Config::$contentDirectory.$filename;
 		}
 
 		// First check to see if cache is enabled and we have a cached page for this request
@@ -206,6 +209,22 @@ class Jebson {
 		}
 		else {
 			// Exception here.  Can't open self::$contentDirectory
+		}
+	}
+	
+	/**
+	 * Gets filename from request.
+	 * Note: If there are multiple URL segments this functions checks to see if the first segment is a number.  If it is
+	 *       then it's assumed a blog post and that filename will be returned.  Otherwise it will look for the file in the 
+	 *       request folder(s).
+	 * @return string path of html file requested
+	 */
+	public static function getFilename() {
+		if (isset(self::$request[0]) && !is_numeric(self::$request[0]) ) {
+			return implode('/', self::$request).'.html';
+		}
+		else {
+			return implode('-', self::$request).'.html';
 		}
 	}
 	

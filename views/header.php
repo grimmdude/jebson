@@ -18,6 +18,7 @@
 					<ul>
 						<li><a href="/blog">Blog</a></li>
 						<li><a href="/sample-page">Sample Page</a></li>
+						<li><a href="/sub/sample-page">Sample Sub Page</a></li>
 					</ul>
 				</nav>
 				<div class="row">
