@@ -21,6 +21,7 @@ class Jebson {
 	public static $date;
 	public static $slug;
 	public static $pageNumber;
+	public static $totalPages;
 	
 	// Set default page data
 	public static $pageData = array(
@@ -120,12 +121,12 @@ class Jebson {
 	}
 	
 	/**
-	 * Includes each element of the page as defined by self::$viewLoadOrder
+	 * Includes each element of the page as defined by Config::$viewLoadOrder
 	 * @return void
 	 */
 	public static function buildPage() {
-		foreach (Config::$viewLoadOrder as $template) {
-			include Config::$viewsDirectory.$template.'.php';
+		foreach (Config::$viewLoadOrder as $view) {
+			include Config::$viewsDirectory.$view.'.php';
 		}
 	}
 	
@@ -137,11 +138,12 @@ class Jebson {
 	public static function renderContent() {		
 		if (!empty(self::$request) && self::$request[0] == Config::$blogURI) {
 			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
-			
+						
 			// List posts with excerpts here
 			$posts = self::getPosts(self::$pageNumber);
-			if (count($posts)) {
-				foreach (self::getPosts(self::$pageNumber) as $post) {
+			
+			if (count($posts)) {				
+				foreach ($posts as $post) {
 					self::getContent($post);
 					include Config::$viewsDirectory.'excerpt.php';
 				}
@@ -180,6 +182,9 @@ class Jebson {
 			else {
 				asort($allPosts);
 			}
+			
+			// Calculate total number of post pages and set instance var
+			self::$totalPages = ceil(count($allPosts) / Config::$postsPerPage);
 			
 			// Now pull out the posts we want to return
 			$postCount = 0;
