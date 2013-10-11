@@ -20,10 +20,13 @@ class Jebson {
 	public static $title;
 	public static $date;
 	public static $slug;
+	public static $pageData;
+	
+	// Below only available on blog page
 	public static $pageNumber;
 	public static $totalPages;
-	public static $pageData;
-
+	public static $totalPosts;
+	
 	/**
 	 * Main function that puts everything together.  The only method that's called from index.php
 	 * @return void
@@ -179,7 +182,8 @@ class Jebson {
 			}
 			
 			// Calculate total number of post pages and set instance var
-			self::$totalPages = ceil(count($allPosts) / Config::$postsPerPage);
+			self::$totalPosts = count($allPosts);
+			self::$totalPages = ceil(self::$totalPosts / Config::$postsPerPage);
 			
 			// Now pull out the posts we want to return
 			$postCount = 0;
