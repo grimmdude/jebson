@@ -7,7 +7,7 @@
 				</div>
 			</div>
 			<footer>
-				<p>Page built with <a href="https://github.com/grimmdude/jebson">Jebson</a></p>
+				<p>Page built with <a href="http://grimmdude.com/2013/08/22/jebson-cms">Jebson</a></p>
 			</footer>
 		</div>	
 	</body>

@@ -22,13 +22,7 @@ class Jebson {
 	public static $slug;
 	public static $pageNumber;
 	public static $totalPages;
-	
-	// Set default page data
-	public static $pageData = array(
-		'title'			=> 'Title',
-		'description'	=> 'Description',
-		'keywords'		=> 'Keywords'
-	);	
+	public static $pageData;
 
 	/**
 	 * Main function that puts everything together.  The only method that's called from index.php
@@ -41,6 +35,7 @@ class Jebson {
 		}
 		
 		self::$startTime = microtime(true);
+		self::$pageData = Config::$defaultPageData;
 		ob_start();
 		self::getParsedRequest();
 		self::getContent();

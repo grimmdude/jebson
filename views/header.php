@@ -4,6 +4,7 @@
 		<title><?php echo self::$pageData['title']; ?></title>
 		<meta name="description" content="<?php echo self::$pageData['description']; ?>" />
 		<meta name="keywords" content="<?php echo self::$pageData['keywords']; ?>" />
+		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>" />
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
 		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
