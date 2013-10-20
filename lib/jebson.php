@@ -238,10 +238,18 @@ class Jebson {
 	 * @return array
 	 */
 	public static function parseFilename($filename) {
-		$return['date'] = substr($filename, 0, 10);
+		$return['date'] = self::isPost($filename) ? substr($filename, 0, 10) : false;
 		$return['raw_title'] = str_replace('.html', '', substr($filename, 11));
 		$return['slug'] = '/'.str_replace('-', '/', $return['date']).'/'.$return['raw_title'];
 		return $return;
+	}
+	
+	/**
+	* Determine if a file is a post.  (if it starts with the date format)
+	* @param string $filename Name of the post file
+	*/
+	public static function isPost($filename) {
+		return is_numeric(substr(str_replace('-','',$filename), 0, 7));
 	}
 
 	/**
