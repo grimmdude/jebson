@@ -245,7 +245,7 @@ class Jebson {
 	}
 	
 	/**
-	* Determine if a file is a post.  (if it starts with the date format)
+	* Determine if a file is a blog post.  (if it starts with the date format)
 	* @param string $filename Name of the post file
 	*/
 	public static function isPost($filename) {
