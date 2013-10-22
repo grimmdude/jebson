@@ -10,13 +10,13 @@ class Config
 										'keywords'		=> 'Jebson CMS, wordpress alternative, fast loading, easy setup'
 									);
 
-	public static $contentDirectory = 'content/';
-	public static $viewsDirectory = 'views/';
-	public static $viewLoadOrder = array('header','body','footer');
-	public static $homepage = 'home.html';
-	public static $blogURI = 'blog';
-	public static $postsPerPage = 5;
-	public static $cache = false;
-	public static $debug = true;
+	public static $contentDirectory = 'content/'; // The directory that houses the content files.
+	public static $viewsDirectory = 'views/'; // The directory that houses the view files.
+	public static $viewLoadOrder = array('header','body','footer'); // The order in which main 'structure' views will be loaded
+	public static $homepage = 'home.html'; // The content file that will serve as your homepage.
+	public static $blogURI = 'blog'; // The URI that will point to your blog (list of posts).
+	public static $postsPerPage = 5; // How many posts to show per blog page.
+	public static $cache = false; // Enable/disable cacheing.
+	public static $debug = true; // Enable/disable debugging.  Basically toggles PHP error reporting.
 	public static $speedMyShitUp = true; //jk
 }
