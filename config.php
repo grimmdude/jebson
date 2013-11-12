@@ -15,6 +15,7 @@ class Config
 	public static $viewLoadOrder = array('header','body','footer'); // The order in which main 'structure' views will be loaded
 	public static $homepage = 'home.html'; // The content file that will serve as your homepage.
 	public static $blogURI = 'blog'; // The URI that will point to your blog (list of posts).
+	public static $wildcards = array(); // Array of wildcards that, when used in a post or page, are replaced by their corresponding value.
 	public static $postsPerPage = 5; // How many posts to show per blog page.
 	public static $cache = false; // Enable/disable cacheing.
 	public static $debug = true; // Enable/disable debugging.  Basically toggles PHP error reporting.

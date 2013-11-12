@@ -112,6 +112,13 @@ class Jebson {
 		// Gotta get rid of the {{readmore}} tag now...there should be a better way to do this
 		self::$content = str_replace('{{readmore}}', '', self::$content);
 		
+		// Go through each $wildcard and replace any needed strings
+		if (isset(Config::$wildcards)) {
+			foreach (Config::$wildcards as $find => $replace) {
+				self::$content = str_replace($find, $replace, self::$content);
+			}
+		}
+		
 		// Store data from YAML for views to use
 		foreach (self::$yaml['parsed'] as $key => $value) {
 			self::$pageData[$key] = $value;
