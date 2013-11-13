@@ -7,6 +7,7 @@
 				</div>
 			</div>
 			<footer>
+				<p><?php echo SampleModule::helloWorld(); ?></p>
 				<p>Page built with <a href="http://grimmdude.com/2013/08/22/jebson-cms">Jebson</a></p>
 			</footer>
 		</div>	

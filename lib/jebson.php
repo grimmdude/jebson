@@ -21,6 +21,7 @@ class Jebson {
 	public static $date;
 	public static $slug;
 	public static $pageData;
+	public static $modules = array();
 	
 	// Below only available on blog page
 	public static $pageNumber;
@@ -39,6 +40,7 @@ class Jebson {
 		
 		self::$startTime = microtime(true);
 		self::$pageData = Config::$defaultPageData;
+		self::loadModules();
 		ob_start();
 		self::getParsedRequest();
 		self::getContent();
@@ -55,6 +57,31 @@ class Jebson {
 		ob_flush();
 	}
 
+	/**
+	 * Loads any modules for use in views
+	 * @return void
+	 */
+	public static function loadModules() {
+		if (is_dir('modules')) {
+			if ($handle = opendir('modules')) {
+				// Include each module class
+	 			while (false !== ($module = readdir($handle))) {
+					if (substr($module, 0, 1) != '.') {
+						require_once 'modules/'.$module;
+						self::$modules[] = $module;
+					}
+				}
+				closedir($handle);
+			}
+			else {
+				throw new Exception('/modules is not readable.');
+			}
+		}
+		else {
+			throw new Exception('/modules is not a directory.');
+		}
+	}
+	
 	/**
 	 * Parses request URI into an array and stores as self::$request
 	 * @return void
