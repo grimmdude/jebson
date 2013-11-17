@@ -77,9 +77,6 @@ class Jebson {
 				throw new Exception('/modules is not readable.');
 			}
 		}
-		else {
-			throw new Exception('/modules is not a directory.');
-		}
 	}
 	
 	/**
