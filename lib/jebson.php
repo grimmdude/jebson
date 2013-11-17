@@ -9,7 +9,7 @@
 
 require_once 'lib/yaml.php';
 require_once 'config.php';
-class Jebson {	
+class Jebson {
 	// Instance data
 	public static $request;
 	public static $startTime;
@@ -48,7 +48,7 @@ class Jebson {
 		self::buildPage();
 		
 		// If cache is enabled and this page hasn't been cached then save the completed page in the cache folder
-		if (Config::$cache && !file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+		if (Config::$cache && !in_array(ltrim($_SERVER['REQUEST_URI'], '/'), Config::$cacheExclude) && !file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
 			if (!file_put_contents('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html', ob_get_contents())) {
 				// Can't write to cache dir...
 				throw new Exception('/cache is not writeable.');
@@ -97,7 +97,7 @@ class Jebson {
 				
 		// Check if this is the home page
 		if (empty(self::$request)) {
-			$postPath = Config::$contentDirectory.Config::$homepage;
+			$postPath = Config::$contentDirectory.Config::$homepage.'.html';
 		}
 		else {
 			$postPath = Config::$contentDirectory.$filename;

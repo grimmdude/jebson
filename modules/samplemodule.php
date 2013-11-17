@@ -1,7 +1,7 @@
 <?php
 
 /**
-* This is a sample module.  Modules are external classes that be called from view files.
+* This is a sample module.  Modules are external classes that can be called from view files.
 */
 class SampleModule
 {
