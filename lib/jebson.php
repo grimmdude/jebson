@@ -41,7 +41,6 @@ class Jebson {
 		self::$startTime = microtime(true);
 		self::$pageData = Config::$defaultPageData;
 		self::loadModules();
-		ob_start();
 		self::getParsedRequest();
 		self::getContent();
 		self::$loadTime = microtime(true) - self::$startTime;
@@ -54,7 +53,6 @@ class Jebson {
 				throw new Exception('/cache is not writeable.');
 			}
 		}
-		ob_flush();
 	}
 
 	/**
@@ -110,7 +108,12 @@ class Jebson {
 			die;
 		}
 		elseif (file_exists($postPath)) {
-			self::$content = file_get_contents($postPath);
+			ob_start();
+			include $postPath;
+			self::$content = ob_get_contents();
+			ob_end_clean();
+			
+			//self::$content = file_get_contents($postPath);
 			self::getYaml();
 			
 			$parsedFilename = self::parseFilename($filename);
@@ -256,10 +259,10 @@ class Jebson {
 	 */
 	public static function getFilename() {
 		if (isset(self::$request[0]) && !is_numeric(self::$request[0]) ) {
-			return implode('/', self::$request).'.html';
+			return implode('/', self::$request).'.php';
 		}
 		else {
-			return implode('-', self::$request).'.html';
+			return implode('-', self::$request).'.php';
 		}
 	}
 	
