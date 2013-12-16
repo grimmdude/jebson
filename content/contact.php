@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['h'])) {
 <?php if (isset($submitted)): ?>
 	<p>Thanks for your message!  I'll get back to you as soon as I can.</p>
 <?php else: ?>
+	<p>Have a comment, question, complaint, funny joke, or anything else you'd like to share with me?  Perhaps you would like to inquire about my web services.</p>
 	<?php if (isset($error)): ?>
 		<p><?php echo $error; ?></p>
 	<?php endif ?>
-	<p>Have a comment, question, complaint, funny joke, or anything else you'd like to share with me?  Perhaps you would like to inquire about my web services.</p>
 	<form action="/contact" method="post" class="form-horizontal" role="form">
 		<div class="form-group">
 			<label for="email" class="col-sm-2 control-label">Your Email:</label>
