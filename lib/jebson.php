@@ -114,7 +114,7 @@ class Jebson {
 			ob_end_clean();
 			
 			//self::$content = file_get_contents($postPath);
-			self::getYaml();
+			//self::getYaml();
 			
 			$parsedFilename = self::parseFilename($filename);
 			//self::$title = $parsedFilename['title'];
@@ -273,7 +273,7 @@ class Jebson {
 	 */
 	public static function parseFilename($filename) {
 		$return['date'] = self::isPost($filename) ? substr($filename, 0, 10) : false;
-		$return['raw_title'] = str_replace('.html', '', substr($filename, 11));
+		$return['raw_title'] = str_replace('.php', '', substr($filename, 11));
 		$return['slug'] = '/'.str_replace('-', '/', $return['date']).'/'.$return['raw_title'];
 		return $return;
 	}
