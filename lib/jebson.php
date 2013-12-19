@@ -95,7 +95,7 @@ class Jebson {
 				
 		// Check if this is the home page
 		if (empty(self::$request)) {
-			$postPath = Config::$contentDirectory.Config::$homepage.'.html';
+			$postPath = Config::$contentDirectory.Config::$homepage.'.php';
 		}
 		else {
 			$postPath = Config::$contentDirectory.$filename;
