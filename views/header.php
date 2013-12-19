@@ -5,13 +5,14 @@
 		<meta name="description" content="<?php echo self::$pageData['description']; ?>" />
 		<meta name="keywords" content="<?php echo self::$pageData['keywords']; ?>" />
 		<meta name="robots" content="index, follow" />
+		<meta name="viewport" content="width=device-width, initial-scale=.9" />
 		<link rel="canonical" href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>" />
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
 		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
 		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
 		</head>
 		<body>
-			<div class="container">
+			<div class="container row col-md-12">
 				<header>
 					<h1><a id="logo" href="/">Jebson</a></h1>
 				</header>
