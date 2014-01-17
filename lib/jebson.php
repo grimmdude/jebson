@@ -14,6 +14,7 @@ class Jebson {
 	public static $request;
 	public static $startTime;
 	public static $loadTime;
+	public static $responseCode = 200;
 	public static $yaml;
 	public static $content;
 	public static $excerpt;
@@ -121,6 +122,10 @@ class Jebson {
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
 		}
+		else {
+			// Trigger 404
+			self::$responseCode = 404;
+		}
 	}
 	
 	/**
@@ -167,29 +172,28 @@ class Jebson {
 	 * @return void
 	 *
 	 */
-	public static function renderContent() {		
-		if (!empty(self::$request) && self::$request[0] == Config::$blogURI) {
-			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
-						
-			// List posts with excerpts here
-			$posts = self::getPosts(self::$pageNumber);
-			
-			if (count($posts)) {				
-				foreach ($posts as $post) {
-					self::getContent($post);
-					include Config::$viewsDirectory.'excerpt.php';
-				}
-			}
-			else {
-				self::error(404);
-			}
-		}
-		elseif (isset(self::$content)) {
-			include Config::$viewsDirectory.'post.php';
+	public static function renderContent() {
+		if (self::$responseCode != 200) {
+			self::error(self::$responseCode);
 		}
 		else {
-			self::error(404);
-		}
+			if (!empty(self::$request) && self::$request[0] == Config::$blogURI) {
+				self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
+
+				// List posts with excerpts here
+				$posts = self::getPosts(self::$pageNumber);
+
+				if (count($posts)) {				
+					foreach ($posts as $post) {
+						self::getContent($post);
+						include Config::$viewsDirectory.'excerpt.php';
+					}
+				}
+			}
+			elseif (isset(self::$content)) {
+				include Config::$viewsDirectory.'post.php';
+			}
+		}	
 	}
 	
 	/**
