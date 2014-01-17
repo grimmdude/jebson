@@ -122,7 +122,7 @@ class Jebson {
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
 		}
-		else {
+		elseif (!self::isBlog()) {
 			// Trigger 404
 			self::$responseCode = 404;
 		}
@@ -162,6 +162,9 @@ class Jebson {
 	 * @return void
 	 */
 	public static function buildPage() {
+		if (self::$responseCode != 200) {
+			self::error(self::$responseCode);
+		}
 		foreach (Config::$viewLoadOrder as $view) {
 			include Config::$viewsDirectory.$view.'.php';
 		}
@@ -174,25 +177,23 @@ class Jebson {
 	 */
 	public static function renderContent() {
 		if (self::$responseCode != 200) {
-			self::error(self::$responseCode);
+			include Config::$viewsDirectory.'404.php';
 		}
-		else {
-			if (!empty(self::$request) && self::$request[0] == Config::$blogURI) {
-				self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
+		elseif (self::isBlog()) {
+			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
 
-				// List posts with excerpts here
-				$posts = self::getPosts(self::$pageNumber);
+			// List posts with excerpts here
+			$posts = self::getPosts(self::$pageNumber);
 
-				if (count($posts)) {				
-					foreach ($posts as $post) {
-						self::getContent($post);
-						include Config::$viewsDirectory.'excerpt.php';
-					}
+			if (count($posts)) {				
+				foreach ($posts as $post) {
+					self::getContent($post);
+					include Config::$viewsDirectory.'excerpt.php';
 				}
 			}
-			elseif (isset(self::$content)) {
-				include Config::$viewsDirectory.'post.php';
-			}
+		}
+		elseif (isset(self::$content)) {
+			include Config::$viewsDirectory.'post.php';
 		}	
 	}
 	
@@ -289,6 +290,13 @@ class Jebson {
 	public static function isPost($filename) {
 		return is_numeric(substr(str_replace('-','',$filename), 0, 7));
 	}
+	
+	/**
+	* Determine if the request is for the blog.
+	*/
+	public static function isBlog() {
+		return !empty(self::$request) && self::$request[0] == Config::$blogURI;
+	}
 
 	/**
 	 * Sends the appropriate error header to the browser and outputs a message
@@ -299,7 +307,7 @@ class Jebson {
 		switch ($error) {
 			case 404:
 				header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
-				include Config::$viewsDirectory.'404.php';
+				//include Config::$viewsDirectory.'404.php';
 				break;
 			default:
 				echo 'Error';
