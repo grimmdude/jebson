@@ -114,6 +114,10 @@ class Jebson {
 			self::$content = ob_get_contents();
 			ob_end_clean();
 			
+			// Get first paragraph to use as an excerpt
+			preg_match_all('/<p[^>]*>.*?<\/p>/s', self::$content, $paragraphs);
+			self::$excerpt = $paragraphs[0][0];
+			
 			//self::$content = file_get_contents($postPath);
 			//self::getYaml();
 			
@@ -128,11 +132,13 @@ class Jebson {
 		}
 	}
 	
+	
 	/**
 	 * Pulls Yaml from self::$content and saves it to static properties
 	 * @return void
-	 *
+	 * NO LONGER USED
 	 */
+	/*
 	public static function getYaml() {
 		self::$yaml['raw'] = Yaml::get(self::$content);
 		self::$yaml['parsed'] = Yaml::parse(self::$yaml['raw']);
@@ -156,6 +162,7 @@ class Jebson {
 			self::$pageData[$key] = $value;
 		}
 	}
+	*/
 	
 	/**
 	 * Includes each element of the page as defined by Config::$viewLoadOrder
@@ -185,6 +192,7 @@ class Jebson {
 			// List posts with excerpts here
 			$posts = self::getPosts(self::$pageNumber);
 
+			// Grab each post
 			if (count($posts)) {				
 				foreach ($posts as $post) {
 					self::getContent($post);
@@ -310,7 +318,7 @@ class Jebson {
 				//include Config::$viewsDirectory.'404.php';
 				break;
 			default:
-				echo 'Error';
+				//echo 'Error';
 				break;
 		}
 	}
