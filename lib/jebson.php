@@ -95,7 +95,7 @@ class Jebson {
 		$filename = is_null($filename) ? self::getFilename() : $filename;
 				
 		// Check if this is the home page
-		if (empty(self::$request)) {
+		if (empty(self::$request) && Config::$blogURI != '') {
 			$postPath = Config::$contentDirectory.Config::$homepage.'.php';
 		}
 		else {
@@ -295,7 +295,7 @@ class Jebson {
 	* Determine if the request is for the blog.
 	*/
 	public static function isBlog() {
-		return !empty(self::$request) && self::$request[0] == Config::$blogURI;
+		return (empty(self::$request) && empty(Config::$blogURI)) || (!empty(self::$request) && self::$request[0] == Config::$blogURI);
 	}
 
 	/**
