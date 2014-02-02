@@ -103,10 +103,10 @@ class Jebson {
 		}
 
 		// First check to see if cache is enabled and we have a cached page for this request
-		if (Config::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+		if (Config::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.php')) {
 			echo 'cached...';
-			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
-			die;
+			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.php');
+			exit;
 		}
 		elseif (file_exists($postPath)) {
 			ob_start();
@@ -180,8 +180,13 @@ class Jebson {
 			include Config::$viewsDirectory.'404.php';
 		}
 		elseif (self::isBlog()) {
-			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
-
+			if (empty(Config::$blogURI)) { // Blog is set to show on homepage
+				self::$pageNumber = isset(self::$request[0]) && is_numeric(self::$request[0]) ? self::$request[0] : 1;
+			}
+			else {
+				self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
+			}
+			
 			// List posts with excerpts here
 			$posts = self::getPosts(self::$pageNumber);
 
