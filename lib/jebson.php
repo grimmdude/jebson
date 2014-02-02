@@ -300,7 +300,7 @@ class Jebson {
 	* Determine if the request is for the blog.
 	*/
 	public static function isBlog() {
-		return (empty(self::$request) || is_numeric(self::$request[0]) && empty(Config::$blogURI)) || (!empty(self::$request) && self::$request[0] == Config::$blogURI);
+		return (empty(self::$request) || (is_numeric(self::$request[0]) && empty(self::$request[1])) && empty(Config::$blogURI)) || (!empty(self::$request) && self::$request[0] == Config::$blogURI);
 	}
 
 	/**
