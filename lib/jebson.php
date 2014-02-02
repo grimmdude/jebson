@@ -95,7 +95,7 @@ class Jebson {
 		$filename = is_null($filename) ? self::getFilename() : $filename;
 				
 		// Check if this is the home page
-		if (empty(self::$request)) {
+		if (empty(self::$request) && Config::$blogURI != '') {
 			$postPath = Config::$contentDirectory.Config::$homepage.'.php';
 		}
 		else {
@@ -103,10 +103,10 @@ class Jebson {
 		}
 
 		// First check to see if cache is enabled and we have a cached page for this request
-		if (Config::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html')) {
+		if (Config::$cache && file_exists('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.php')) {
 			echo 'cached...';
-			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.html');
-			die;
+			readfile('cache/'.str_replace('/', '-', $_SERVER['REQUEST_URI']).'.php');
+			exit;
 		}
 		elseif (file_exists($postPath)) {
 			ob_start();
@@ -187,8 +187,13 @@ class Jebson {
 			include Config::$viewsDirectory.'404.php';
 		}
 		elseif (self::isBlog()) {
-			self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
-
+			if (empty(Config::$blogURI)) { // Blog is set to show on homepage
+				self::$pageNumber = isset(self::$request[0]) && is_numeric(self::$request[0]) ? self::$request[0] : 1;
+			}
+			else {
+				self::$pageNumber = isset(self::$request[1]) && is_numeric(self::$request[1]) ? self::$request[1] : 1;
+			}
+			
 			// List posts with excerpts here
 			$posts = self::getPosts(self::$pageNumber);
 
@@ -303,7 +308,7 @@ class Jebson {
 	* Determine if the request is for the blog.
 	*/
 	public static function isBlog() {
-		return !empty(self::$request) && self::$request[0] == Config::$blogURI;
+		return (empty(self::$request) || (is_numeric(self::$request[0]) && empty(self::$request[1])) && empty(Config::$blogURI)) || (!empty(self::$request) && self::$request[0] == Config::$blogURI);
 	}
 
 	/**
