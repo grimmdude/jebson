@@ -219,6 +219,7 @@ class Jebson {
 	public static function getPosts($page = 1, $order = 'desc') {
 		if ($handle = opendir(Config::$contentDirectory)) {
 			$allPosts = array();
+			
 			// First create a list of available posts
  			while (false !== ($entry = readdir($handle))) {
 				if (substr($entry, 0, 1) != '.' && is_numeric(substr(str_replace('-','',$entry), 0, 7))) {
@@ -248,8 +249,8 @@ class Jebson {
 						$stop = $page + Config::$postsPerPage - 1;
 					}
 					else {
-						$start = $page * Config::$postsPerPage - 1;
-						$stop = $page * Config::$postsPerPage + Config::$postsPerPage - 2;
+						$start = $page * Config::$postsPerPage - (Config::$postsPerPage - 1);
+						$stop = $page * Config::$postsPerPage;
 					}
 					
 					if (in_array($postCount, range($start, $stop))) {
@@ -308,7 +309,10 @@ class Jebson {
 	* Determine if the request is for the blog.
 	*/
 	public static function isBlog() {
-		return (empty(self::$request) || (is_numeric(self::$request[0]) && empty(self::$request[1])) && empty(Config::$blogURI)) || (!empty(self::$request) && self::$request[0] == Config::$blogURI);
+		return 
+				(empty(self::$request) && empty(Config::$blogURI)) ||
+				(isset(self::$request[0]) && is_numeric(self::$request[0]) && empty(self::$request[1]) && empty(Config::$blogURI)) || 
+				(!empty(self::$request) && self::$request[0] == Config::$blogURI);
 	}
 
 	/**
