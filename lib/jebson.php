@@ -114,6 +114,13 @@ class Jebson {
 			self::$content = ob_get_contents();
 			ob_end_clean();
 			
+			// Go through each $wildcard and replace any needed strings
+			if (isset(Config::$wildcards)) {
+				foreach (Config::$wildcards as $find => $replace) {
+					self::$content = str_replace($find, $replace, self::$content);
+				}
+			}
+			
 			// Get first paragraph to use as an excerpt
 			preg_match_all('/<p[^>]*>.*?<\/p>/s', self::$content, $paragraphs);
 			self::$excerpt = $paragraphs[0][0];
