@@ -7,8 +7,8 @@
 		<meta name="robots" content="index, follow" />
 		<meta name="viewport" content="width=device-width, initial-scale=.9" />
 		<link rel="canonical" href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>" />
-		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" media="all" />
-		<link rel='stylesheet'  href='/assets/css/all.css' type='text/css' media='all' />
+		<?php echo Helpers::loadCSS('/assets/css/bootstrap.css'); ?>
+		<?php echo Helpers::loadCSS('/assets/css/all.css'); ?>
 		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
 		</head>
 		<body>

@@ -9,6 +9,8 @@
 
 require_once 'lib/yaml.php';
 require_once 'config.php';
+require_once 'helpers.php';
+
 class Jebson {
 	// Instance data
 	public static $request;
