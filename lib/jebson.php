@@ -85,7 +85,8 @@ class Jebson {
 	 * @return void
 	 */
 	public static function getParsedRequest() {
-		self::$request = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+		// Strip off query string
+		self::$request = array_values(array_filter(explode('/', strtok($_SERVER['REQUEST_URI'], '?'))));
 	}
 
 	/**
