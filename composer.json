@@ -1,0 +1,16 @@
+{
+    "name": "jebson",
+    "description": "A content management system based on static files aimed at ease of use and swift load times.",
+    "require": {
+        "php": ">=5.3.0"
+    },
+	"homepage" : "http://grimmdude.com/jebson",
+	"license" : "MIT",
+	"authors" : [
+		{
+			"name" : "Garrett Grimm",
+			"email" : "garrett@grimmdude.com",
+			"homepage" : "http://grimmdude.com"
+		}
+	]
+}
