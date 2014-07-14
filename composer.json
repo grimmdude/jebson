@@ -1,5 +1,5 @@
 {
-    "name": "jebson",
+    "name": "grimmdude/jebson",
     "description": "A content management system based on static files aimed at ease of use and swift load times.",
     "require": {
         "php": ">=5.3.0"
