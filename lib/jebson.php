@@ -11,6 +11,9 @@ require_once dirname(__FILE__).'/yaml.php';
 require_once dirname(__FILE__).'/../config.php';
 require_once dirname(__FILE__).'/helpers.php';
 
+// Load Config
+Config::init();
+
 class Jebson {
 	// Instance data
 	public static $request;
@@ -139,6 +142,7 @@ class Jebson {
 			//self::$title = $parsedFilename['title'];
 			self::$date = $parsedFilename['date'];
 			self::$slug = $parsedFilename['slug'];
+			return self::$content;
 		}
 		elseif (!self::isBlog()) {
 			// Trigger 404
@@ -230,7 +234,7 @@ class Jebson {
 	 * @param string $order 'desc' or 'asc'. Defaults to 'desc'
 	 * @return array
 	 */
-	public static function getPosts($page = 1, $order = 'desc') {
+	public static function getPosts($page = false, $order = 'desc') {
 		if ($handle = opendir(Config::$contentDirectory)) {
 			$allPosts = array();
 			
