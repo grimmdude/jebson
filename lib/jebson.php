@@ -7,9 +7,9 @@
  *
  */
 
-require_once 'lib/yaml.php';
-require_once 'config.php';
-require_once 'helpers.php';
+require_once dirname(__FILE__).'/yaml.php';
+require_once dirname(__FILE__).'/../config.php';
+require_once dirname(__FILE__).'/helpers.php';
 
 class Jebson {
 	// Instance data
